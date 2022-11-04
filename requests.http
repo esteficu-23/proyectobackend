@@ -1,0 +1,27 @@
+### //--->Para separar los request//
+POST http://localhost:9000/api/client HTTP/1.1
+Content-Type: application/json
+
+{
+   "name": "Mariana Menza",
+   "phone": "3465554712",
+   "location": "Los Quirquinchos"
+}
+
+###
+GET http://localhost:9000/api/client HTTP/1.1
+
+###
+GET http://localhost:9000/api/client/636563a3cbd497ce728b937d HTTP/1.1
+
+###
+PUT http://localhost:9000/api/client/6365657acbd497ce728b937f HTTP/1.1
+Content-Type: application/json
+
+{
+   "name": "Hogar de ancianos la flor del norte"
+}
+
+###
+DELETE http://localhost:9000/api/client/636563a3cbd497ce728b937d HTTP/1.1
+
