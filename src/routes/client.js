@@ -1,51 +1,68 @@
 const express = require("express");
-const clientSchema = require("../models/client");
-
 const router = express.Router();
+const {
+  crearCliente,
+  obtenerClientes,
+  obtenerCliente,
+  actualizarCliente,
+  eliminarCliente,
+} = require("../controllers/clientController");
 
-//Crear un cliente nuevo
-router.post("/client", (req, res) => {
-  const client = clientSchema(req.body);
-  client
-    .save()
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+const { check } = require("express-validator");
+const { validarId } = require("../middleware/client");
 
-//Obtener todos los clientes
-router.get("/client", (req, res) => {
-  clientSchema
-    .find()
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+//Crear un cliente nuevo -->
+router.post(
+  "/client",
+  [
+    //Middleware
+    check("name")
+      .not()
+      .isEmpty()
+      .withMessage("Debe colocar el nombre")
+      .isLength({ min: 4, max: 40 })
+      .withMessage("El nombre ingresado no es valido"),
+    check("phone")
+      .not()
+      .isEmpty()
+      .withMessage("Debe colocar el numero de telefono")
+      .isNumeric()
+      .withMessage("Verifique el numero de telefono ingresado"),
+    check("location").not().isEmpty().withMessage("Debe colocar la localidad"),
+  ],
+  crearCliente
+);
 
-//Obtener un clientes
-router.get("/client/:id", (req, res) => {
-  const { id } = req.params;
-  clientSchema
-    .findById(id)
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+//Obtener todos los clientes -->
+router.get("/client", obtenerClientes);
 
-//Actualizar un usuario
-router.put("/client/:id", (req, res) => {
-  const { id } = req.params;
-  const { name, phone, location } = req.body;
-  clientSchema
-    .updateOne({ _id: id }, { $set: { name, phone, location } })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+//Obtener un clientes-->
+router.get("/client/:id([0-9a-fA-F]{24})", validarId, obtenerCliente);
 
-//Eliminar un cliente
-router.delete("/client/:id", (req, res) => {
-  const { id } = req.params;
-  clientSchema
-    .remove({ _id: id })
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error }));
-});
+//Actualizar un cliente -->
+router.put(
+  "/client/:id([0-9a-fA-F]{24})",
+  validarId,
+  [
+    //Middleware
+    check("name")
+      .not()
+      .isEmpty()
+      .withMessage("Debe colocar un nombre")
+      .isLength({ min: 4, max: 40 })
+      .withMessage("El nombre ingresado es invalido"),
+    check("phone")
+      .not()
+      .isEmpty()
+      .withMessage("Debe colocar el numero de telefono")
+      .isNumeric()
+      .withMessage("Verifique el numero de telefono ingresado"),
+    check("location").not().isEmpty().withMessage("Debe colocar la localidad"),
+  ],
+  actualizarCliente
+);
+
+//Eliminar un cliente -->
+router.delete("/client/:id([0-9a-fA-F]{24})", validarId, eliminarCliente);
 
 module.exports = router;
