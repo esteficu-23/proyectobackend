@@ -1,10 +1,10 @@
 ### //--->Para separar los request--->//
-POST http://localhost:9000/api/client HTTP/1.1
+POST http://localhost:9000/client/post HTTP/1.1
 Content-Type: application/json
 
 {
-   "name": "Pepito Cascioni",
-   "phone": "3465532896",
+   "name": "Angel Silai",
+   "phone": "3465556698",
    "location": "Berabevu"
 }
 
@@ -15,30 +15,33 @@ Content-Type: application/json
 {
    "year": "2022",
    "month":"Noviembre",
-   "day": "9",
-   "income": ""
+   "day": "10",
+   "income": "15000"
 }
 
 ###
-GET http://localhost:9000/api/client HTTP/1.1
+GET http://localhost:9000/client/get HTTP/1.1
 ###
 GET  http://localhost:9000/api/income HTTP/1.1
 
 ###
-GET http://localhost:9000/api/client/63656605cbd497ce728b9381 HTTP/1.1
+GET http://localhost:9000/client/get/63656605cbd497ce728b9381 HTTP/1.1
 ###
   
 GET http://localhost:9000/api/income/63680ac8efabdb7f520bbdb1 HTTP/1.1
 
+###
+GET http://localhost:9000/axios HTTP/1.1
+ 
 
 ###
-PUT http://localhost:9000/api/client/636bf8957e7779ec1799905b HTTP/1.1
+PUT http://localhost:9000/client/put/636c00605c9f134199f82394 HTTP/1.1
 Content-Type: application/json
 
 {  
-   "name": "Graciela Vasallo",
-   "phone": "3465532896",
-   "location": "Los Quirquinchos"
+   "name": "Pepito cascioni",
+   "phone": "3465532899",
+   "location": "Berabevu"
 }
 
 ###
@@ -49,12 +52,11 @@ Content-Type: application/json
    "year": "2022",
    "month": "Noviembre",
    "day": "9",
-  "income": "9550"
+  "income": "8500"
 }
 
 ###
-
-DELETE http://localhost:9000/api/client/636bfeed5c9f134199f8237b HTTP/1.1
+DELETE http://localhost:9000/client/delete/636bfeed5c9f134199f8237b HTTP/1.1
 
 ###
 DELETE http://localhost:9000/api/income/636bf4d1cf7a1c96253791bb HTTP/1.1

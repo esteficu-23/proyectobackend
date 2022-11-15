@@ -7,13 +7,12 @@ const {
   actualizarCliente,
   eliminarCliente,
 } = require("../controllers/clientController");
-
 const { check } = require("express-validator");
 const { validarId } = require("../middleware/client");
 
 //Crear un cliente nuevo -->
 router.post(
-  "/client",
+  "/post",
   [
     //Middleware
     check("name")
@@ -34,14 +33,14 @@ router.post(
 );
 
 //Obtener todos los clientes -->
-router.get("/client", obtenerClientes);
+router.get("/get", obtenerClientes);
 
-//Obtener un clientes-->
-router.get("/client/:id([0-9a-fA-F]{24})", validarId, obtenerCliente);
+//Obtener un clientes -->
+router.get("/get/:id([0-9a-fA-F]{24})", validarId, obtenerCliente);
 
 //Actualizar un cliente -->
 router.put(
-  "/client/:id([0-9a-fA-F]{24})",
+  "/put/:id([0-9a-fA-F]{24})",
   validarId,
   [
     //Middleware
@@ -63,6 +62,6 @@ router.put(
 );
 
 //Eliminar un cliente -->
-router.delete("/client/:id([0-9a-fA-F]{24})", validarId, eliminarCliente);
+router.delete("/delete/:id([0-9a-fA-F]{24})", validarId, eliminarCliente);
 
 module.exports = router;
