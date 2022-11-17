@@ -31,7 +31,7 @@ GET http://localhost:9000/client/get/63656605cbd497ce728b9381 HTTP/1.1
 GET http://localhost:9000/api/income/63680ac8efabdb7f520bbdb1 HTTP/1.1
 
 ###
-GET http://localhost:9000/axios HTTP/1.1
+GET http://localhost:9000/axios/clima HTTP/1.1
  
 
 ###
